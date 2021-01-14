@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhf.dao.Production_unitDao">
+    <resultMap id="map1" type="com.yhf.pojo.Production_unit">
+        <id property="pu_id" column="pu_id"/>
+        <result property="pu_name" column="pu_name"/>
+        <result property="length" column="length"/>
+        <result property="width" column="width"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="pt_id" column="pt_id"/>
+        <result property="pt_name" column="pt_name"/>
+        <result property="pu_ctime" column="pu_ctime"/>
+        <result property="creator_id" column="creator_id"/>
+    </resultMap>
+
+    <select id="getAllProduction" resultMap="map1">
+        select * from agriculture.production_unit
+    </select>
+
+    <select id="getPojoById" resultMap="map1">
+        select * from agriculture.production_unit where pu_id=#{id}
+    </select>
+</mapper>

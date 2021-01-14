@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhf.dao.WeatherStationDao">
+    <resultMap id="map1" type="com.yhf.pojo.WeatherStation">
+        <result property="humi" column="humi"/>
+        <result property="temp" column="temp"/>
+        <result property="illu" column="illu"/>
+        <result property="wind_spd" column="wind_spd"/>
+        <result property="wind_Drct" column="wind_Drct"/>
+        <result property="rain_24hr" column="rain_24hr"/>
+    </resultMap>
+    <insert id="addMsg">
+        insert into agriculture.weather_station(se_id,temp,humi,illu,wind_spd,wind_Drct,rain_24hr)
+        values(#{ws.se_id},#{ws.temp},#{ws.humi},#{ws.illu},#{ws.wind_spd},#{ws.wind_Drct},#{ws.rain_24hr})
+    </insert>
+
+    <select id="getMsgNum" resultType="int">
+        select COUNT(*) from agriculture.weather_station
+    </select>
+
+
+    <delete id="deleteOldestMsg">
+        delete FROM agriculture.weather_station WHERE we_lid=#{id}
+    </delete>
+
+    <select id="getOldestMsg" resultType="int">
+        select MIN(we_lid) from agriculture.weather_station
+    </select>
+
+    <select id="getNewMsg" resultMap="map1">
+        SELECT * FROM (SELECT * FROM agriculture.weather_station ORDER BY we_lid DESC LIMIT #{n}) a ORDER BY we_lid
+    </select>
+
+    <select id="getMsgInScope" resultMap="map1">
+        select * from agriculture.weather_station where we_ctime &gt; #{param1} and we_ctime &lt; #{param2}
+    </select>
+</mapper>

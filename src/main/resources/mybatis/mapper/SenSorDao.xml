@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhf.dao.SensorDao">
+    <resultMap id="map1" type="com.yhf.pojo.Sensor">
+        <id property="se_id" column="se_id"/>
+        <result property="se_name" column="se_name"/>
+        <result property="host" column="host"/>
+        <result property="theme" column="theme"/>
+        <result property="port" column="port"/>
+        <result property="pu_id" column="pu_id"/>
+        <result property="se_ctime" column="se_ctime"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="getAllTopic" resultMap="map1">
+        select * from agriculture.sensor
+        <where>
+            <if test="ip!=null and port!=null">
+                host=#{param1} and port=#{param2}
+            </if>
+            <if test="ip!=null and port==null">
+                host=#{param1}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getSidByTheme" resultType="integer">
+        select se_id from agriculture.sensor where theme=#{param1}
+    </select>
+
+    <select id="getPuid" resultType="Integer">
+        select pu_id from agriculture.sensor where se_id=#{id}
+    </select>
+
+    <select id="getSensorByPuid" resultMap="map1">
+        select * from agriculture.sensor where pu_id=#{id}
+    </select>
+
+</mapper>

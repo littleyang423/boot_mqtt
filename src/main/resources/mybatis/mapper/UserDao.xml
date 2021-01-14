@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhf.dao.UserDao">
+    <resultMap id="map1" type="com.yhf.pojo.User">
+        <result property="username" column="u_name"></result>
+        <result property="password" column="u_pwd"></result>
+        <result property="phone" column="phone"/>
+    </resultMap>
+    <select id="userExist" resultMap="map1">
+        select * from agriculture.uuser
+        <where>
+            <if test="username!=null and password==null and phone == null">
+                u_name=#{param1}
+            </if>
+            <if test="username == null and password == null and phone != null">
+                phone=#{param3}
+            </if>
+            <if test="username != null and password == null and phone != null">
+                u_name=#{param1} or phone=#{param3}
+            </if>
+            <if test="username!=null and password !=null and phone == null">
+                u_name=#{param1} and u_pwd=#{param2}
+            </if>
+            <if test="username == null and password !=null and phone !=null">
+                phone=#{param3} and u_pwd=#{param2}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="addUser">
+        insert into agriculture.uuser(u_name,u_pwd,phone) values(#{user.username},#{user.password},#{user.phone})
+    </insert>
+
+    <select id="getUserId" resultType="java.lang.Integer">
+        select u_id from agriculture.uuser
+        <where>
+            <if test="username == null and phone !=null">
+                phone = #{param2}
+            </if>
+            <if test="username != null and phone == null">
+                u_name = #{param1}
+            </if>
+        </where>
+    </select>
+
+
+    <update id="userLogin">
+        update agriculture.uuser set u_status=1 where u_id=#{id}
+    </update>
+
+    <update id="userLogout">
+        update agriculture.uuser set u_status=0 where u_id=#{id}
+    </update>
+
+    <select id="userStatus" resultType="int">
+        select u_status from agriculture.uuser where u_id=#{id}
+    </select>
+
+    <select id="getAllLoginedUser" resultMap="map1">
+        select * from agriculture.uuser where u_status=1
+    </select>
+</mapper>

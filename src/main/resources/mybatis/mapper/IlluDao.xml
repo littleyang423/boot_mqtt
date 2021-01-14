@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhf.dao.IlluDao">
+    <resultMap id="map1" type="com.yhf.pojo.Illu">
+        <result property="se_id" column="se_id"/>
+        <result property="illu" column="illu"/>
+        <result property="il_ctime" column="il_ctime"/>
+    </resultMap>
+    <insert id="addMsg">
+        insert into agriculture.illu(se_id,illu) values(#{il.se_id},#{il.illu})
+    </insert>
+
+    <select id="getMsgNum" resultType="int">
+        select COUNT(*) from agriculture.illu;
+    </select>
+
+
+    <delete id="deleteOldestMsg">
+        delete from agriculture.illu where il_lid=#{id}
+    </delete>
+
+    <select id="getNewMsg" resultMap="map1">
+        SELECT * FROM (SELECT * FROM agriculture.illu ORDER BY il_lid DESC LIMIT #{num}) a ORDER BY il_lid
+    </select>
+
+    <select id="getOldestMsg" resultType="int">
+        select MIN(il_lid) from agriculture.illu
+    </select>
+
+    <select id="getMsgInScope" resultMap="map1">
+        select * from agriculture.illu where il_ctime &gt; #{param1} and il_ctime &lt; #{param2}
+    </select>
+</mapper>

@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    username: root
+    password: "root"
+    url: jdbc:mysql://localhost:3306/agriculture?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  sa-token:
+    token-name: ourtoken
+    timeout: 2592000
+    activity-timeout: 1800
+    allow-concurrent-login: false
+    is-share: false
+    token-style: uuid
+    isReadCookie: false
+  jackson:
+    default-property-inclusion: non_null
+
+
+
+
+mybatis:
+  type-aliases-package: com.yhf.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+
+mqtt:
+  username: admin
+  password: password
+  url: tcp://111.229.163.181:1883
+  receiver:
+    clientId: ${random.value}
+    defaultTopic: application/3/device/+/rx,application/6/device/+/rx,application/1/device/2cf7f12212100030/rx,application/5/device/8d0000010200000d/rx,application/1/device/2cf7f1221210007e/rx
+  sender:
+    clientId: ${random.value}
+    defaultTopic: application/5/device/8d0000010200000d/tx
+
+maxmsg:
+  showNum: 20
+  waterQuality: 500
+  weatherStation: 500
+  temphum: 500
+  illu: 500
+
+
+
+

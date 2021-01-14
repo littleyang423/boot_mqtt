@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhf.dao.EquipDao">
+    <resultMap id="map1" type="com.yhf.pojo.Equipment">
+        <result property="status" column="eq_status"/>
+        <result property="propSwitch" column="eq_name"/>
+    </resultMap>
+    <select id="getAllEquip" resultMap="map1">
+        select * from agriculture.equipment
+    </select>
+
+    <update id="changeStatus">
+        update agriculture.equipment set eq_status=#{em.status} where eq_name=#{em.propSwitch}
+    </update>
+
+    <select id="getEquipId" resultType="int">
+        select eq_id from agriculture.equipment where eq_name=#{name}
+    </select>
+</mapper>

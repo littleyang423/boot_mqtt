@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhf.dao.WaterQualityDao">
+    <resultMap id="map1" type="com.yhf.pojo.WaterQuality">
+        <result property="bat_volt" column="bat_volt"/>
+        <result property="ec_do" column="ec_do"/>
+        <result property="temp" column="temp"/>
+        <result property="ec_orp" column="ec_orp"/>
+        <result property="ec_ph" column="ec_ph"/>
+        <result property="tds" column="tds"/>
+        <result property="salt" column="salt"/>
+        <result property="tdov" column="tdov"/>
+        <result property="tdos" column="tdos"/>
+        <result property="ec_us" column="ec_us"/>
+    </resultMap>
+    <insert id="addMsg">
+        insert into agriculture.water_quality(se_id,bat_volt,ec_do,ec_ph,temp,ec_orp,ec_us,tds,salt,tdov,tdos)
+        values(#{wq.se_id},#{wq.bat_volt},#{wq.ec_do},#{wq.ec_ph},#{wq.temp},#{wq.ec_orp},#{wq.ec_us},#{wq.tds},#{wq.salt},#{wq.tdov},#{wq.tdos})
+    </insert>
+
+    <select id="getMsgNum" resultType="int">
+        select COUNT(*) from agriculture.water_quality
+    </select>
+
+
+    <delete id="deleteOldestMsg">
+        delete FROM water_quality WHERE wq_lid=#{id}
+    </delete>
+
+    <select id="getOldestMsg" resultType="int">
+        select MIN(wq_lid) from agriculture.water_quality
+    </select>
+
+    <select id="getNewMsg" resultMap="map1">
+        SELECT * FROM (SELECT * FROM agriculture.water_quality ORDER BY wq_lid DESC LIMIT #{num}) a ORDER BY wq_lid
+    </select>
+
+    <select id="getMsgInScope" resultMap="map1">
+        select * from agriculture.water_quality where wq_ctime &gt; #{param1} and wq_ctime &lt; #{param2}
+    </select>
+
+</mapper>

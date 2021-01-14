@@ -194,20 +194,20 @@ public class MqttReceiverConfig {
                      */
                     TempHum tempHum = tempHumUtil.setBytes(bytes);
                     if(tempHum != null){
-                        System.out.println("温度::"+tempHum.getTh_temp());
-                        System.out.println("湿度::"+tempHum.getTh_hum());
+//                        System.out.println("温度::"+tempHum.getTh_temp());
+//                        System.out.println("湿度::"+tempHum.getTh_hum());
                         tempHum.setSe_id(sensorUtil.getSid("application/1/device/2cf7f12212100030/rx"));
                         tempHumService.addMsg(tempHum);
                     }
                 }else if(topic.startsWith("application/5/device/8d0000010200000d")){
                     System.out.println(bytes);
                     String s = Base64.getEncoder().encodeToString(bytes);
-                    System.out.println("s::::"+s);
+//                    System.out.println("s::::"+s);
                     equipUtil.setBytes(bytes);
                 }else if(topic.startsWith("application/1/device/2cf7f1221210007e")){
                     Illu illu = illuUtil.setBytes(bytes);
                     if(illu!=null){
-                        System.out.println("光照::"+illu.getIllu());
+//                        System.out.println("光照::"+illu.getIllu());
                         illu.setSe_id(sensorUtil.getSid("application/1/device/2cf7f1221210007e/rx"));
                         illuService.addMsg(illu);
                     }

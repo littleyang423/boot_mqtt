@@ -40,11 +40,11 @@ public class TempHumUtilImpl implements TempHumUtil {
     public TempHum setBytes(byte[] byt) {
         bytes = byt;
         len = bytes.length;
-        System.out.println("bytes:::"+printHexBinary(bytes));
-        System.out.println(bytes.length);
-        for(int i = 0;i < len; i++){
-            System.out.print((bytes[i]&0xff)+" ");
-        }
+//        System.out.println("bytes:::"+printHexBinary(bytes));
+//        System.out.println(bytes.length);
+//        for(int i = 0;i < len; i++){
+//            System.out.print((bytes[i]&0xff)+" ");
+//        }
         return analysis();
     }
 

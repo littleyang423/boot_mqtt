@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
         ResultEntity success = ResultUtil.success(tokenInfo);
         success.setMsg(username1);
 
-        System.out.println("username"+user.getUsername());
+//        System.out.println("username"+user.getUsername());
         //生成token传给客户端
         return success;
     }

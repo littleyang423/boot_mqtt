@@ -38,7 +38,7 @@ public class TimeUtil {
             timp = tss.toString();
             a=true;
         }
-        System.out.println("timp="+timp);
+//        System.out.println("timp="+timp);
         String year;
         String mouth;
         String day;

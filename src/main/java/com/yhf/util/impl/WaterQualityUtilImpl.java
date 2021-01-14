@@ -91,7 +91,7 @@ public class WaterQualityUtilImpl implements WaterQualityUtil {
             int value = 0;
             for(int i = 4; i < len;){
                 if(i >= len - 2){
-                    System.out.println("break");
+//                    System.out.println("break");
                     break;
                 }
                 value = 0;
